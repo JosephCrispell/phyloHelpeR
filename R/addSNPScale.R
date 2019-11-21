@@ -22,7 +22,8 @@
 
 ## Install
 #setwd("..")
-#install("basicPlotteR")
+#install("phyloHelpeR")
+
 #' Add a SNP scale to phylogeny
 #'
 #' Function that adds a SNP scale onto a plotted phylogeny
