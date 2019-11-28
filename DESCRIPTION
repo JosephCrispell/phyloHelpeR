@@ -1,14 +1,11 @@
 Package: phyloHelpeR
-Title: What the Package Does (One Line, Title Case)
+Title: Functions to help with plotting phylogenies in R
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: What license it uses
+Authors@R: person("Joseph", "Crispell", email = "crispelljoseph@gmail.com", role = "cre")
+Description: When you're plotting using plot.phylo() hopefully these functions will be helpful!
+Depends: R (>= 3.3.3)
+Imports: ape, grid
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.0.9000
