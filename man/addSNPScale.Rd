@@ -23,6 +23,25 @@ addSNPScale(x = NULL, y = NULL, position = NULL, size = 1,
 \description{
 Function that adds a SNP scale onto a plotted phylogeny
 }
+\examples{
+# Set the plotting margins
+par(mar=c(0,0,0,0))
+
+# Set the seed
+set.seed(76263)
+
+# Create a random phylogeny
+tree <- ape::rtree(n=50, rooted=TRUE)
+
+# Rescale the branch lengths to simulate SNPs
+tree$edge.length <- round(tree$edge.length*10, digits=0)
+
+# Plot the phylogeny
+ape::plot.phylo(tree)
+
+# Add a SNP scale
+addSNPScale(position="bottomright", size=5)
+}
 \keyword{nucleotide}
 \keyword{phylogeny}
 \keyword{scale}

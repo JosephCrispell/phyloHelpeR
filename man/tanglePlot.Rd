@@ -39,9 +39,9 @@ set.seed(76263)
 tree <- ape::rtree(n=50, rooted=TRUE)
 
 # Rotate one of the nodes in the phylogeny - with tip labels it
-rotated <- ape::rotate(tree, node=c("t39", "t46"))
+rotated <- ape::rotate(tree, node=c("t35", "t34"))
 
-# Compare the random and rotated phylogeny ####
+# Compare the random and rotated phylogeny
 tanglePlot(tree, rotated, connectingLine.col="red",
            connectingLine.lty=2, show.tip.label=TRUE, offsetProp=0.02)
 }
