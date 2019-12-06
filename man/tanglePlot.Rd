@@ -4,10 +4,18 @@
 \alias{tanglePlot}
 \title{Plot the different nucleotides present in an alignment of nucleotide sequences}
 \usage{
-tanglePlot(tree1, tree2, onlyIfDifferent = TRUE,
-  connectingLine.col = "black", connectingLine.lwd = 1,
-  connectingLine.lty = 1, offsetProp = NULL, leftMargins = c(0, 0, 0,
-  1), rightMargins = c(0, 1, 0, 0), ...)
+tanglePlot(
+  tree1,
+  tree2,
+  onlyIfDifferent = TRUE,
+  connectingLine.col = "black",
+  connectingLine.lwd = 1,
+  connectingLine.lty = 1,
+  offsetProp = NULL,
+  leftMargins = c(0, 0, 0, 1),
+  rightMargins = c(0, 1, 0, 0),
+  ...
+)
 }
 \arguments{
 \item{tree1}{an object of class "phylo" to compared to \code{tree2}}

@@ -38,16 +38,16 @@
 #' @param rightMargins margin parameters for the right tree plot. Defaults to \code{c(0,1,0,0)} to leave small space on left
 #' @keywords pylogeny tree tangle plot compare
 #' @export
-#' @examples 
+#' @examples
 #' # Set the seed
 #' set.seed(76263)
-#' 
+#'
 #' # Create a random phylogeny
 #' tree <- ape::rtree(n=50, rooted=TRUE)
-#' 
+#'
 #' # Rotate one of the nodes in the phylogeny - with tip labels it
 #' rotated <- ape::rotate(tree, node=c("t35", "t34"))
-#' 
+#'
 #' # Compare the random and rotated phylogeny
 #' tanglePlot(tree, rotated, connectingLine.col="red",
 #'            connectingLine.lty=2, show.tip.label=TRUE, offsetProp=0.02)
@@ -106,9 +106,9 @@ tanglePlot <- function(tree1, tree2, onlyIfDifferent=TRUE,
 #' @param onlyIfDifferent a boolean variable, if \code{TRUE} only plots lines between tips that are in different locations on the phylogenies, otherwise lines between all tips are plotted. Defaults to \code{TRUE}
 #' @param offsetProp offset value to displace starts of connecting lines from tips, set as the proportion of plotting window. Defaults to \code{NULL} (off)
 #' @keywords internal
-plotLinesBetweenTips <- function(tipLocationsA, tipLocationsB,
-                                 col="black", lwd=1, lty=1,
-                                 onlyIfDifferent=TRUE, offsetProp=NULL){
+plotLinesBetweenAllTips <- function(tipLocationsA, tipLocationsB,
+                                    col="black", lwd=1, lty=1,
+                                    onlyIfDifferent=TRUE, offsetProp=NULL){
 
   # Open up the port to allow lines to be added
   grid::pushViewport(grid::viewport())
@@ -133,15 +133,15 @@ plotLinesBetweenTips <- function(tipLocationsA, tipLocationsB,
     if(abs(tipLocationsA[[key]][4] - tipLocationsB[[key]][4]) > 1){
 
       # Plot a connecting line between tip on left and same tip on right
-      plotLineBetweenTips(coordsA=tipLocationsA[[key]], coordsB=tipLocationsB[[key]],
-                          col=col, lty=lty, lwd=lwd, xOffset=xOffset)
+      plotLineBetweenPairOfTips(coordsA=tipLocationsA[[key]], coordsB=tipLocationsB[[key]],
+                                col=col, lty=lty, lwd=lwd, xOffset=xOffset)
 
     # Check if want to plot lines between tips regardless of if different
     }else if(onlyIfDifferent == FALSE){
 
       # Plot a connecting line between tip on left and same tip on right
-      plotLineBetweenTips(coordsA=tipLocationsA[[key]], coordsB=tipLocationsB[[key]],
-                          col=col, lty=lty, lwd=lwd, xOffset=xOffset)
+      plotLineBetweenPairOfTips(coordsA=tipLocationsA[[key]], coordsB=tipLocationsB[[key]],
+                                col=col, lty=lty, lwd=lwd, xOffset=xOffset)
     }
   }
 }
@@ -156,8 +156,8 @@ plotLinesBetweenTips <- function(tipLocationsA, tipLocationsB,
 #' @param lty type of the lines connecting tips. Defaults to 1 (solid)
 #' @param xOffset The distance on X axis to displace the start and ends of connecting lines. Defaults to 0
 #' @keywords internal
-plotLineBetweenTips <- function(coordsA, coordsB,
-                                col="black", lwd=1, lty=1, xOffset=0){
+plotLineBetweenPairOfTips <- function(coordsA, coordsB,
+                                      col="black", lwd=1, lty=1, xOffset=0){
 
   # Open up the port to plot the current line
   grid::pushViewport(viewport())
