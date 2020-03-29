@@ -81,12 +81,12 @@ tanglePlot <- function(tree1, tree2, onlyIfDifferent=TRUE,
   tree2TipCoordinates <- getTipCoordinates(tree2$tip.label)
 
   # Plot lines between the phylogenies
-  plotLinesBetweenTips(tree1TipCoordinates, tree2TipCoordinates,
-                       col=connectingLine.col,
-                       lwd=connectingLine.lwd,
-                       lty=connectingLine.lty,
-                       onlyIfDifferent=onlyIfDifferent,
-                       offsetProp=offsetProp)
+  plotLinesBetweenAllTips(tree1TipCoordinates, tree2TipCoordinates,
+                          col=connectingLine.col,
+                          lwd=connectingLine.lwd,
+                          lty=connectingLine.lty,
+                          onlyIfDifferent=onlyIfDifferent,
+                          offsetProp=offsetProp)
 
   # Reset the plotting margins
   par(mar=currentMar)

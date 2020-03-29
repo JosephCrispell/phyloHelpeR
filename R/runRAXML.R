@@ -36,33 +36,35 @@
 #' @keywords phylogeny raxml maximum likelihood
 #' @export
 runRAXML <- function(fastaFile, date, path, nBootstraps=100, nThreads=6, outgroup=NULL, model="GTRCAT"){
-  
+
   # Create a directory for the output file
-  directory <- paste(path, "RAxML_", date, sep="")
-  
+  directory <- file.path(path, paste0("RAxML_", date))
+
+  print(directory)
+
   # Check if analyses already run
   alreadyRun <- dir.exists(directory)
-  
+
   # If not already run, create output directory for RAxML
   if(alreadyRun == FALSE){
     suppressWarnings(dir.create(directory))
   }
-  
+
   # Get and set the Working directory - this will be where the output files are dumped
   currentDirectory <- getwd()
   setwd(directory)
-  
+
   # Build analysis name
   analysisName <- paste("RaxML-R_", date, sep="")
-  
+
   # Check if already Run and just want to retrieve tree
   if(alreadyRun == FALSE){
-    
+
     # Build the command
     seeds <- sample(1:100000000, size=2, replace=FALSE) # For parsimony tree and boostrapping
-    
+
     if(is.null(outgroup)){
-      command <- paste("raxmlHPC", 
+      command <- paste("raxmlHPC",
                        " -f a", # Algorithm: Rapid boostrap inference
                        " -N ", nBootstraps,
                        " -T ", nThreads,
@@ -71,26 +73,26 @@ runRAXML <- function(fastaFile, date, path, nBootstraps=100, nThreads=6, outgrou
                        " -n ", analysisName,
                        " -s ", fastaFile, sep="")
     }else{
-      command <- paste("raxmlHPC", 
+      command <- paste("raxmlHPC",
                        " -f a", # Algorithm: Rapid boostrap inference
                        " -N ", nBootstraps,
                        " -T ", nThreads,
                        " -m ", model, " -V", # -V means no rate heterogenity
                        " -p ", seeds[1], " -x ", seeds[2], # Parsimony and boostrapping seeds
                        " -n ", analysisName,
-                       " -s ", fastaFile, 
+                       " -s ", fastaFile,
                        " -o ", outgroup, sep="")
     }
-    
+
     system(command, intern=TRUE)
   }
-  
+
   # Get the tree and read it in
   treeBS <- getTreeFileWithSupportValues(analysisName)
-  
+
   # Reset working directory
   setwd(currentDirectory)
-  
+
   return(treeBS)
 }
 
@@ -101,15 +103,15 @@ runRAXML <- function(fastaFile, date, path, nBootstraps=100, nThreads=6, outgrou
 #' @keywords internal
 #' @return Returns a phylo tree object
 getTreeFileWithSupportValues <- function(analysisName){
-  
+
   # Get files in current working directory
   files <- list.files()
-  
+
   # Select the tree file with BS support values
   treeBSFile <- files[grepl(files, pattern=paste("RAxML_bipartitions[.]", analysisName, sep="")) == TRUE]
-  
+
   # Open the file
   treeBS <- ape::read.tree(treeBSFile)
-  
+
   return(treeBS)
 }
