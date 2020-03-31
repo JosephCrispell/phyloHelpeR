@@ -160,7 +160,7 @@ plotLineBetweenPairOfTips <- function(coordsA, coordsB,
                                       col="black", lwd=1, lty=1, xOffset=0){
 
   # Open up the port to plot the current line
-  grid::pushViewport(viewport())
+  grid::pushViewport(grid::viewport())
 
   # Plot a connecting line between tip on left and same tip on right
   grid::grid.lines(x = c(coordsA[1]+xOffset, coordsB[1]-xOffset),
